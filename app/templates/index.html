@@ -1,0 +1,361 @@
+<!DOCTYPE html>  
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title> AI Dungeon Master | AI Camp </title>
+      <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="statuc/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" media="screen">
+      </head>
+    <body id="page-top">
+      <div class="u-align-left u-container-style u-image u-layout-cell u-left-cell u-shading u-size-30 u-size-xs-60" style="background-image: url({{ url_for('static', filename='img/header-bg.jpg') }}); data-image-width="1280" data-image-height="913">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                    <a class="navbar-brand" href="#page-top"> </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item "><a class="nav-link" href="#glossary">Glossary</a></li>
+                        <li class="nav-item "><a class="nav-link" href="#services">Model</a></li>
+                        <li class="nav-item "><a class="nav-link" href="#team">Team</a></li>
+                       <li class="nav-item "><a class="nav-link" href="#timelines">Timelines</a></li>
+                        <li class="nav-item "><a class="nav-link" href="#contact">Contact</a></li>
+                      <li class="nav-item "><a class="nav-link" href="https://www.ai-camp.org/">AI CAMP</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+         <!-- Masthead-->
+        <header class="masthead">
+
+            <div class="container">
+                <div class="masthead-subheading">Welcome to the AI Dungeons and Dragons Dungeon Master!</div>
+                <div class="masthead-heading text-uppercase">Have an AI tell you your fate!</div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Try here!</a>
+            </div>
+        </header>
+      </div>
+      <!-- glossary-->
+        <section class="page-section bg-light" id="glossary">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Glossary</h2>
+                    <h3 class="section-subheading text-muted">Pre-Trained GPT2 Model will generate your story based up on your action.</h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-question-mark fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">NLP</h4>
+                        <p class="text-muted">Natural language processing (NLP) is the ability of a computer program to understand human language as it is spoken and written. It is a component of artificial intelligence (AI).</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-question-mark fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">AITEXTGEN</h4>
+                        <p class="text-muted">aitextgen is a Python package that leverages PyTorch, Hugging Face Transformers, and pytorch-lightning with specific optimizations for text generation using GPT-2.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-question-mark fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">GPT2</h4>
+                        <p class="text-muted">GPT-2 is a transformers model, pre-trained on a very large corpus of English data in a self-supervised fashion.</p>
+                    </div>
+                </div>
+            </div>
+        </section>     
+      <!-- Model-->
+        <section class="page-section " id="services">
+            <div class="container px-4 px-lg-5 text-center">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-5">
+                        <h2 class="text-light2">Test the Dungeon Master here!</h2>
+                        <p class="lead mb-5"><strong>Submit what your character will do and the AI will create your story on the right!</strong></p>
+                        <form action="{{url_for('generate_text')}}" method="POST" source="custom" name="form-1" >
+                          <div class="form-group">
+                            <textarea class="form-control-lg" rows="4" cols="50" placeholder="Write your action here..." required="" id="text_gen_input" style='width: 460px; height: 200px;'name="prompt"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <button type="submit" class="btn btn-secondary" id="text_gen_button" href="#services">Generate</button>
+                          </div>
+                        </form>
+                        <br>
+                    </div>
+                    <div class="col-lg-5">
+                      <h2 class="text-light2">Results:</h2>
+                      <ul id="generated_ul">
+                      <p>
+                        {{ generated }}
+                        </p>
+                      <!-- generated items will be here. -->
+                      </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+      <!-- Team-->
+        <section class="page-section bg-light" id="team">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Chloe Tabaco </h3>
+                            <h6>Student Developer</h6>
+                            <p  class="text-secondary">Chloe is a high school student from Delaware who wants to make a change with the help of technology. Aside from the AI camp, Chloe has taken different coding classes and has experience with robotics. Chloe enjoys making new friends in the process of creating new projects.</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Chloe Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Chloe Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Chloe LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Andre Grossberg</h3>
+                            <h6>Student Developer</h6>
+                            <p  class="text-secondary">A Georgia high school student, Andre has a strong passion for STEM principles. Along with developing his Python, HTML, and CSS skills in the Summer AI Camp 2022, he has experience in CAD and manufacturing process through competing and learning from friends. </p>
+
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Andre Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Andre Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Andre LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Tarik Qudwa </h3>
+                            <h6>Student Developer</h6>
+                            <p  class="text-secondary"> Tarik is a high school student from North Carolina. He likes to make friends and he likes to code and is excited for new technologies to use in the future. He may not have much experience coding but he is dedicated to becoming good at it. He also knows the top 10 number from 1 to 10.</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Tarik Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Tarik Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Tarik LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Ryle</h3>
+                            <h6>Student Developer</h6>
+                            <p  class="text-secondary">Ryle, a high school student from Pearland, is extremely passionate about computer science and is working to hone his python, HTML, and CSS abilities . His interests include painting and animation.</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Ryle Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Ryle Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Ryle LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Malani Butler</h3>
+                            <h6>Student Developer</h6>
+                            <p  class="text-secondary">Game Developer, Artist/Animator, Musician, and Voice Actor with a large interest in Computer Science who hopes to use her skills to create a career for herself in the Video Game Development Industry.</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Fabian</h3>
+                            <h6>Student Developer</h6>
+                            <p  class="text-secondary">Fabian is a high school student from Texas who aspires to develop his software development/AI skills to translate problem-solving skills learned into other trades (while making friends lol).</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Fabian Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Fabian Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Fabian LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Sharath Himmath</h3>
+                            <p>AI Camp Instructor</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Mitch Cutts</h3>
+                            <p>AI Camp Mentor</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  <div class="col-lg-4">
+                        <div class="team-member">
+                          <h3>Alex Duffy</h3>
+                            <p>AI Camp Mentor</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Malani LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </section>
+      <!-- Timelines-->
+        <section class="page-section " id="timelines">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">TIMELINES</h2>
+                    <h3 class="section-subheading text-muted">How did we made this?.</h3>
+                </div>
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{{ url_for('static', filename='img/1.jpg')}}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>June 6</h4>
+                                <h4 class="subheading">Our Humble Beginnings</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Got together, learned about each others interests!</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{{ url_for('static', filename='img/2.jpg')}}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>Week 1</h4>
+                                <h4 class="subheading">Ideation</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Created product specs, worked on Word2Vec, aitexgen, ML and DL. </p></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{{ url_for('static', filename='img/3.jpg')}}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>Week 2</h4>
+                                <h4 class="subheading">Training</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Worked on Seq2Seq models, applications of transformers and trained the model. </p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{{ url_for('static', filename='img/4.jpg')}}" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>Week 3</h4>
+                                <h4 class="subheading">Web Development</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Learned HTML,CSS,Flask and deployed the model.</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <h4>
+                                and
+                                <br />
+                                its
+                                <br />
+                                done!
+                            </h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+      <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contact Us</h2>
+                    <h3 class="section-subheading text-muted">We are open to connect!</h3>
+                </div>
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- * * SB Forms Contact Form * *-->
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- This form is pre-integrated with SB Forms.-->
+                <!-- To make this form functional, sign up at-->
+                <!-- https://startbootstrap.com/solution/contact-forms-->
+                <!-- to get an API token!-->
+                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Name input-->
+                                <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                            <div class="form-group">
+                                <!-- Email address input-->
+                                <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                            </div>
+                            <div class="form-group mb-md-0">
+                                <!-- Phone number input-->
+                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <!-- Message input-->
+                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit success message-->
+                    <!---->
+                    <!-- This is what your users will see when the form-->
+                    <!-- has successfully submitted-->
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center text-white mb-3">
+                            <div class="fw-bolder">Form submission successful!</div>
+                            To activate this form, sign up at
+                            <br />
+                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                        </div>
+                    </div>
+                    <!-- Submit error message-->
+                    <!---->
+                    <!-- This is what your users will see when there is-->
+                    <!-- an error submitting the form-->
+                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                    <!-- Submit Button-->
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+                </form>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; AI Camp Summer Project Website 2022</div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
+
+      
+                  
